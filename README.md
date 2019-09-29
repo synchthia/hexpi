@@ -14,6 +14,6 @@ pipenv install
 
 ### Build
 ```bash
-pipenv run pyinstaller -F --clean ./hexpi.py
+pipenv run pyinstaller -F --clean ./*.py
 ```
 > binary files are export to `dist` directory.
