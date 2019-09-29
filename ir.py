@@ -26,7 +26,7 @@ def send(gpio: int, signal: []) -> None:
     spaces_wid = {}
     wave = [0]*len(signal)
 
-    for i in len(signal):
+    for i in range(len(signal)):
         ci = signal[i]
         if i & 1:
             if ci not in spaces_wid:
