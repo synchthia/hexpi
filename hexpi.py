@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-import ir
+from util import ir
 
 if len(sys.argv) < 2:
     print("Usage: hexpi <gpio> <signal...>")
