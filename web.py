@@ -17,11 +17,14 @@ class DefaultHandler(tornado.web.RequestHandler):
         self.finish({"error": self._reason})
 
 class IRHandler(tornado.web.RequestHandler):
+    def initialize(self, gpio):
+        self.gpio = gpio
+
     def post(self):
         try:
             req = tornado.escape.json_decode(self.request.body)
             signal = req['code']
-            ir.send(3, signal)
+            ir.send(self.gpio, signal)
 
             self.write({})
         except json.decoder.JSONDecodeError as ex:
@@ -33,10 +36,10 @@ class IRHandler(tornado.web.RequestHandler):
     def write_error(self, status_code, exc_info=None, **kwargs):
         self.finish({"error": self._reason})
 
-def start(port: int):
+def start(port: int, gpio: int):
     web = tornado.web.Application([
         (r"/api/v1/ir", IRHandler),
-    ], default_handler_class=DefaultHandler)
+    ], default_handler_class=DefaultHandler, dict(gpio=gpio))
 
     web.listen(port)
     logging.info("HTTP Server started on %d", port)

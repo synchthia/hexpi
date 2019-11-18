@@ -17,7 +17,7 @@ if mode == "http":
     port = os.getenv("HTTP_PORT")
     if port is None:
         port = "8081"
-    web.start(port)
+    web.start(port, gpio)
 
 elif mode == "hex":
     def f(n):
