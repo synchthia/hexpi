@@ -1,8 +1,8 @@
-hexpi
+HexPi
 =====================================
 
 ## What's this?
-This is just IR sending showcase.
+This is GPIO frontend for IR Remote Controller etc.
 
 ## How to Build?
 > You should be install `pipenv`.
@@ -14,6 +14,6 @@ pipenv install
 
 ### Build
 ```bash
-pipenv run pyinstaller -F --clean ./*.py
+pipenv run pyinstaller -F --clean ./hexpi.py
 ```
 > binary files are export to `dist` directory.
