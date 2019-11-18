@@ -38,10 +38,10 @@ class IRHandler(tornado.web.RequestHandler):
 
 def start(port: int, gpio: int):
     web = tornado.web.Application([
-        (r"/api/v1/ir", IRHandler),
-    ], default_handler_class=DefaultHandler, dict(gpio=gpio))
+        (r"/api/v1/ir", IRHandler, dict(gpio=gpio)),
+    ], default_handler_class=DefaultHandler)
 
     web.listen(port)
-    logging.info("HTTP Server started on %d", port)
+    logging.info("HTTP Server started on %d", int(port))
 
     tornado.ioloop.IOLoop.current().start()

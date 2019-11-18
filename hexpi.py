@@ -4,9 +4,21 @@ import sys
 import os
 from util import ir, aeha
 import web
+import logging
+
+# Logging
+LOG_LEVEL = logging.INFO
+if os.getenv("DEBUG", "") != "":
+    LOG_LEVEL = logging.DEBUG
+
+logging.basicConfig(
+        format='[%(asctime)s] [%(levelname)s] %(message)s',
+        datefmt='%Y/%m/%d %H:%M:%S %z',
+        level=LOG_LEVEL
+)
 
 if len(sys.argv) < 3:
-    print("Usage: hexpi <gpio> <http|hex|ir> [code...]")
+    print("Usage: hexpi <gpio> <http|hex [code...]|ir [signals...]>")
     sys.exit(0)
 
 # default = 2
