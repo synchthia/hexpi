@@ -3,6 +3,7 @@
 import sys
 import os
 from util import ir, aeha
+from sensors import swbme
 import web
 import logging
 
@@ -18,7 +19,7 @@ logging.basicConfig(
 )
 
 if len(sys.argv) < 3:
-    print("Usage: hexpi <gpio> <http|hex [code...]|ir [signals...]>")
+    print("Usage: hexpi <gpio> <http|hex [code...]|ir [signals...]|sensors>")
     sys.exit(0)
 
 # default = 2
@@ -39,7 +40,11 @@ elif mode == "hex":
         signal.append(hexCode)
 
     signal = aeha.toCode(430, signal, 13300)
+    ir.send(gpio, signal)
 elif mode == "ir":
     signal = list(map(int, sys.argv[3:]))
+    ir.send(gpio, signal)
+elif mode == "sensors":
+    r = swbme.readData()
+    print(r)
 
-ir.send(gpio, signal)

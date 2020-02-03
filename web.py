@@ -5,6 +5,7 @@ import logging
 import tornado.ioloop
 import tornado.web
 from util import ir, aeha
+from sensors import swbme
 
 class DefaultHandler(tornado.web.RequestHandler):
     def get(self):
@@ -36,9 +37,21 @@ class IRHandler(tornado.web.RequestHandler):
     def write_error(self, status_code, exc_info=None, **kwargs):
         self.finish({"error": self._reason})
 
+class SensorHandler(tornado.web.RequestHandler):
+    def initialize(self):
+        pass
+
+    def get(self):
+        r = swbme.readData()
+        self.write(r)
+
+    def write_error(self, status_code, exc_info=None, **kwargs):
+        self.finish({"error": self._reason})
+
 def start(port: int, gpio: int):
     web = tornado.web.Application([
         (r"/api/v1/ir", IRHandler, dict(gpio=gpio)),
+        (r"/api/v1/sensors", SensorHandler),
     ], default_handler_class=DefaultHandler)
 
     web.listen(port)
