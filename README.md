@@ -1,6 +1,9 @@
 HexPi (Archived)
 =====================================
 
+> # Deprecated
+> We are migrated to [Pigent](https://github.com/dash-app/pigent). Please see here.
+
 ## What's this?
 This is GPIO frontend for IR Remote Controller etc.
 
